@@ -1,19 +1,19 @@
 <template lang="pug">
   div.card
     div.card__img-wrapper
-      img(class="card__img" :src="info.tournamentData.cardImage + '?width=300&height=300'")
+      img(class="card__img" :src="info.cardImage + '?width=300&height=300'")
     div.card__data.data
       p.data__date {{date}}
       div.data__name.name
-        svg.name__icon(:class="info.tournamentData.paymentType === 'free' && 'name__icon--free'")
-          use(:xlink:href="`#${info.tournamentData.paymentType === 'free' ? 'free' : 'ticket'}`")
-        p.name__text {{info.tournamentData.name}}
+        svg.name__icon(:class="info.paymentType === 'free' && 'name__icon--free'")
+          use(:xlink:href="`#${info.paymentType === 'free' ? 'free' : 'ticket'}`")
+        p.name__text {{info.name}}
       p.data__tournament-info.tournament-info
-        span.tournament-info__type.tournament-info__block {{info.tournamentData.tournamentType.gameMode}}
+        span.tournament-info__type.tournament-info__block {{info.gameMode}}
         span.tournament-info__separator
         span.tournament-info__people.tournament-info__block
-          span.tournament-info__count {{info.tournamentData.participateCount}}/
-          span.tournament-info__max {{info.tournamentData.maxUsers}}
+          span.tournament-info__count {{info.participateCount}}/
+          span.tournament-info__max {{info.maxUsers}}
         span.tournament-info__separator
         span.tournament-info__prize.tournament-info__block Призовой фонд {{prize}} руб.
 </template>
@@ -31,10 +31,10 @@
     computed: {
       date() {
         moment.locale('ru');
-        return moment(this.info.tournamentData.startedAt).format('DD MMMM, в h:mm')
+        return moment(this.info.startedAt).format('DD MMMM, в h:mm')
       },
       prize() {
-        return this.info.tournamentData.prizeTable.reduce((accum, val) => accum + val, 0)
+        return this.info.prizeTable.reduce((accum, val) => accum + val, 0)
       }
     }
   }

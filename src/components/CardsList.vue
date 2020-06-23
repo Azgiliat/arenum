@@ -2,7 +2,7 @@
   section(class="all-tournaments" v-scroll="loadCards")
     transition-group(:name="'cards'" tag="ul" class="all-tournaments__list list")
       li(class="list__item" v-for="(card, index) in cards" :key="card.tournamentCode + index")
-        Card(class="list__card" :info="card")
+        Card(class="list__card" :info="usefullInfo(card)")
     transition(name="loader" duration="1500")
       p.all-tournaments__loader(v-show="loadingStatus") Загружаем следующие турниры
     transition(name="error" duration="1500")
@@ -37,7 +37,20 @@
     methods: {
       ...mapActions('cards', {
         loadCards: 'loadCards'
-      })
+      }),
+      usefullInfo(card) {
+        const { cardImage, startedAt, paymentType, name, participateCount, maxUsers, prizeTable } = card.tournamentData
+        return {
+          cardImage,
+          startedAt,
+          paymentType,
+          name,
+          participateCount,
+          maxUsers,
+          prizeTable,
+          gameMode: card.tournamentData.tournamentType.gameMode
+        }
+      }
     }
   }
 </script>
